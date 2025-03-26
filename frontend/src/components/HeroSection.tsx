@@ -8,7 +8,7 @@ function HeroSection() {
       regular: "Ace your upcoming exam's preparation with ",
       gradient: "AI-powered subject experts.",
     }}
-    description="Master complex topics through smart, exam-focused guidance. Learn faster with interactive Q&A tailored for engineering students."
+    description="Master complex topics through smart, exam-focused guidance. Learn faster and perform hard work in a smart way."
     ctaText="Start Learning Free"
     ctaHref="#"
 />
