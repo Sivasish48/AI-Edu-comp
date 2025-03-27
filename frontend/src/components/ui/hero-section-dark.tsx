@@ -11,7 +11,6 @@ interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
   description?: string
   ctaText?: string
   ctaHref?: string
-  bottomImage?: string
   gridOptions?: {
     angle?: number
     cellSize?: number
@@ -56,15 +55,14 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
       description = "Sed ut perspiciatis unde omnis iste natus voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.",
       ctaText = "Browse courses",
       ctaHref = "#",
-      bottomImage = "https://farmui.vercel.app/dashboard.png",
       gridOptions,
       ...props
     },
     ref,
   ) => {
     return (
-      <div className={cn("relative bg-gray-950 text-white", className)} ref={ref} {...props}>
-        <div className="absolute top-0 z-[0] h-screen w-screen bg-purple-950/20 bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))]" />
+      <div className={cn("relative bg-gray-950 text-white ", className)} ref={ref} {...props}>
+        <div className="absolute top-0 z-[0] h-screen w-screen bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))]" />
         <section className="relative max-w-full mx-auto z-1">
           <RetroGridDark {...gridOptions} />
           <div className="max-w-screen-xl z-10 mx-auto px-4 py-28 gap-12 md:px-8">
@@ -94,15 +92,6 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
                 </span>
               </div>
             </div>
-            {bottomImage && (
-              <div className="mt-32 mx-10 relative z-10">
-                <img
-                  src={bottomImage || "/placeholder.svg"}
-                  className="w-full shadow-lg rounded-lg border border-gray-800"
-                  alt="Dashboard preview"
-                />
-              </div>
-            )}
           </div>
         </section>
       </div>
@@ -112,4 +101,3 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
 HeroSectionDark.displayName = "HeroSectionDark"
 
 export { HeroSectionDark }
-

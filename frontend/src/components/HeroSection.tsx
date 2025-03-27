@@ -3,6 +3,7 @@ import { HeroSectionDark } from "./ui/hero-section-dark"
 function HeroSection() {
   return (
     <HeroSectionDark
+  className="!pb-0"
     title="Introducing EduPal AI"
     subtitle={{
       regular: "Ace your upcoming exam's preparation with ",
@@ -12,6 +13,7 @@ function HeroSection() {
     ctaText="Start Learning Free"
     ctaHref="#"
 />
+
   )
 }
 
