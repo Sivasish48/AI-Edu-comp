@@ -1,32 +1,44 @@
-import type React from "react"
-import { BookOpen, Code, FlaskRoundIcon as Flask, Calculator, Globe, Brain } from "lucide-react"
+import type React from "react";
+import {
+  BookOpen,
+  Code,
+  FlaskRoundIcon as Flask,
+  Calculator,
+  Globe,
+  Brain,
+} from "lucide-react";
 
-import { Badge } from "../components/ui/badge"
-import { Button } from "../components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
+import { Badge } from "../components/ui/badge";
+import { Button } from "../components/ui/button";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
 
 interface ExpertContent {
-  badge: string
-  name: string
-  description: string
-  buttonText: string
-  imgSrc: string
-  imgAlt: string
-  expertise: string[]
+  badge: string;
+  name: string;
+  description: string;
+  buttonText: string;
+  imgSrc: string;
+  imgAlt: string;
+  expertise: string[];
 }
 
 interface Expert {
-  value: string
-  icon: React.ReactNode
-  label: string
-  content: ExpertContent
+  value: string;
+  icon: React.ReactNode;
+  label: string;
+  content: ExpertContent;
 }
 
 interface AIExpertsSectionProps {
-  badge?: string
-  heading?: string
-  description?: string
-  experts?: Expert[]
+  badge?: string;
+  heading?: string;
+  description?: string;
+  experts?: Expert[];
 }
 
 export default function AIExpertsSection({
@@ -46,7 +58,13 @@ export default function AIExpertsSection({
         buttonText: "Chat with Math Expert",
         imgSrc: "/placeholder.svg?height=400&width=400",
         imgAlt: "Math AI Expert",
-        expertise: ["Calculus", "Algebra", "Statistics", "Geometry", "Number Theory"],
+        expertise: [
+          "Calculus",
+          "Algebra",
+          "Statistics",
+          "Geometry",
+          "Number Theory",
+        ],
       },
     },
     {
@@ -61,7 +79,13 @@ export default function AIExpertsSection({
         buttonText: "Chat with Science Expert",
         imgSrc: "/placeholder.svg?height=400&width=400",
         imgAlt: "Science AI Expert",
-        expertise: ["Physics", "Chemistry", "Biology", "Earth Science", "Astronomy"],
+        expertise: [
+          "Physics",
+          "Chemistry",
+          "Biology",
+          "Earth Science",
+          "Astronomy",
+        ],
       },
     },
     {
@@ -76,7 +100,13 @@ export default function AIExpertsSection({
         buttonText: "Chat with Coding Expert",
         imgSrc: "/placeholder.svg?height=400&width=400",
         imgAlt: "Coding AI Expert",
-        expertise: ["Python", "JavaScript", "Data Structures", "Algorithms", "Web Development"],
+        expertise: [
+          "Python",
+          "JavaScript",
+          "Data Structures",
+          "Algorithms",
+          "Web Development",
+        ],
       },
     },
     {
@@ -91,7 +121,13 @@ export default function AIExpertsSection({
         buttonText: "Chat with Literature Expert",
         imgSrc: "/placeholder.svg?height=400&width=400",
         imgAlt: "Literature AI Expert",
-        expertise: ["Essay Writing", "Literary Analysis", "Grammar", "Creative Writing", "Poetry"],
+        expertise: [
+          "Essay Writing",
+          "Literary Analysis",
+          "Grammar",
+          "Creative Writing",
+          "Poetry",
+        ],
       },
     },
     {
@@ -106,7 +142,13 @@ export default function AIExpertsSection({
         buttonText: "Chat with History Expert",
         imgSrc: "/placeholder.svg?height=400&width=400",
         imgAlt: "History AI Expert",
-        expertise: ["World History", "Political Science", "Cultural Studies", "Geography", "Economics"],
+        expertise: [
+          "World History",
+          "Political Science",
+          "Cultural Studies",
+          "Geography",
+          "Economics",
+        ],
       },
     },
     {
@@ -121,71 +163,103 @@ export default function AIExpertsSection({
         buttonText: "Chat with Study Coach",
         imgSrc: "/placeholder.svg?height=400&width=400",
         imgAlt: "Study Coach AI Expert",
-        expertise: ["Study Planning", "Memory Techniques", "Test Strategies", "Time Management", "Note-Taking"],
+        expertise: [
+          "Study Planning",
+          "Memory Techniques",
+          "Test Strategies",
+          "Time Management",
+          "Note-Taking",
+        ],
       },
     },
   ],
 }: AIExpertsSectionProps) {
   return (
-    <section className="py-24 bg-black text-white">
-      <div className="container mx-auto">
+    <section className="py-12 md:py-24 bg-black text-white">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center gap-4 text-center">
           <Badge variant="outline" className="border-purple-500 text-purple-300">
             {badge}
           </Badge>
-          <h2 className="max-w-3xl text-4xl mt-18 bg-clip-text text-gradient-to-r from-purple-300 to-orange-200">{heading}</h2>
-          <p className="text-gray-300 max-w-2xl">{description}</p>
         </div>
-        <Tabs defaultValue={experts[0].value} className="mt-20">
-          <TabsList className="container flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 bg-transparent">
+        
+        <div className="flex flex-col items-center gap-4 text-center mt-8 md:mt-10 mb-8 md:mb-10">
+          <h2 className="max-w-3xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal bg-gradient-to-r from-purple-300 to-orange-200 bg-clip-text text-transparent px-4">
+            {heading}
+          </h2>
+          <p className="text-gray-300 max-w-2xl mt-6 md:mt-10 text-sm sm:text-base">
+            {description}
+          </p>
+        </div>
+
+        <Tabs defaultValue={experts[0].value} className="mt-12 md:mt-28">
+          <TabsList className="w-full flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 bg-transparent px-2">
             {experts.map((expert) => (
               <TabsTrigger
                 key={expert.value}
                 value={expert.value}
-                className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-gray-300 border border-purple-900/50 hover:bg-purple-900/30 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-900 data-[state=active]:to-purple-700 data-[state=active]:text-white data-[state=active]:border-purple-500 transition-all"
+                className="flex items-center gap-2 rounded-xl px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm font-medium text-gray-300 border border-purple-900/50 hover:bg-purple-900/30 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-900 data-[state=active]:to-purple-700 data-[state=active]:text-white data-[state=active]:border-purple-500 transition-all"
               >
                 {expert.icon} {expert.label}
               </TabsTrigger>
             ))}
           </TabsList>
-          <div className="mx-auto mt-10 max-w-screen-xl rounded-2xl bg-[#13113a]/70 p-6 lg:p-12 border border-purple-900/30">
+          
+          <div className="mx-auto mt-8 md:mt-10 max-w-screen-xl rounded-2xl bg-[#13113a]/70 p-4 sm:p-6 lg:p-12 border border-purple-900/30">
             {experts.map((expert) => (
               <TabsContent
                 key={expert.value}
                 value={expert.value}
-                className="grid place-items-center gap-12 lg:grid-cols-2 lg:gap-10"
+                className="grid place-items-center gap-8 md:gap-12 lg:grid-cols-2"
               >
-                <div className="flex flex-col gap-5">
-                  <Badge variant="outline" className="w-fit bg-purple-900/50 text-purple-300 border-purple-500">
+                <div className="flex flex-col gap-4 md:gap-5 order-2 lg:order-1">
+                  <Badge
+                    variant="outline"
+                    className="w-fit bg-purple-900/50 text-purple-300 border-purple-500 text-xs sm:text-sm"
+                  >
                     {expert.content.badge}
                   </Badge>
-                  <h3 className="text-3xl font-semibold lg:text-4xl text-white">{expert.content.name}</h3>
-                  <p className="text-gray-300 lg:text-lg">{expert.content.description}</p>
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white">
+                    {expert.content.name}
+                  </h3>
+                  
+                  <p className="text-gray-300 text-sm sm:text-base md:text-lg">
+                    {expert.content.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mt-1 md:mt-2">
                     {expert.content.expertise.map((skill, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 text-xs rounded-full bg-purple-900/40 text-purple-200 border border-purple-800/50"
+                        className="px-2 py-1 text-[0.65rem] xs:text-xs rounded-full bg-purple-900/40 text-purple-200 border border-purple-800/50 whitespace-nowrap"
                       >
                         {skill}
                       </span>
                     ))}
                   </div>
+                  
                   <Button
-                    className="mt-4 w-fit gap-2 bg-gradient-to-r from-purple-700 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white border-none"
+                    className="mt-3 md:mt-4 w-full sm:w-fit gap-2 relative overflow-hidden rounded-full p-[1.5px] border-none"
                     size="lg"
                   >
-                    {expert.content.buttonText}
+                    <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                    <div className="inline-flex h-full w-full items-center justify-center rounded-full bg-gray-950 backdrop-blur-3xl">
+                      <span className="inline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-700/30 via-purple-500/30 to-transparent text-white border-input border-[1px] border-white/10 hover:bg-gradient-to-tr hover:from-zinc-700/40 hover:via-purple-500/40 hover:to-transparent transition-all py-3 px-6 sm:py-4 sm:px-10 text-sm sm:text-base">
+                        {expert.content.buttonText}
+                      </span>
+                    </div>
                   </Button>
                 </div>
-                <div className="relative w-full aspect-square max-w-md mx-auto">
+                
+                <div className="relative w-full aspect-square max-w-xs sm:max-w-sm md:max-w-md mx-auto mb-6 lg:mb-0 order-1 lg:order-2">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 rounded-2xl -rotate-6 scale-95 opacity-70"></div>
                   <img
                     src={expert.content.imgSrc || "/placeholder.svg"}
                     alt={expert.content.imgAlt}
                     width={400}
                     height={400}
-                    className="rounded-2xl relative z-10 border border-purple-500/30"
+                    className="rounded-2xl relative z-10 border border-purple-500/30 w-full h-full object-cover"
                   />
                 </div>
               </TabsContent>
@@ -194,6 +268,5 @@ export default function AIExpertsSection({
         </Tabs>
       </div>
     </section>
-  )
+  );
 }
-
