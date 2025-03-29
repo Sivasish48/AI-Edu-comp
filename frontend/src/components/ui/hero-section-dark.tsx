@@ -2,6 +2,7 @@ import * as React from "react"
 import { cn } from "../../lib/utils"
 import { ChevronRight } from "lucide-react"
 import { TabsTrigger } from "../ui/tabs" // Make sure to import TabsTrigger
+import { AIExpertCards } from "../FeatureExpert"
 
 interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
@@ -122,6 +123,23 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
               </div>
             </div>
           </div>
+          <main className="flex min-h-screen flex-col items-center justify-center py-16 px-4 bg-[#0c0c10]">
+      <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-5 bg-fixed"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/5"></div>
+
+      <div className="text-center mb-16 relative z-10">
+        <h1 className="text-4xl font-normal mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-orange-200">
+          AI Education Companions
+        </h1>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          Connect with our subject matter experts powered by AI. Choose a specialist below to start learning.
+        </p>
+      </div>
+
+      <div className="relative z-10 w-full">
+        <AIExpertCards />
+      </div>
+    </main>
         </section>
       </div>
     )
