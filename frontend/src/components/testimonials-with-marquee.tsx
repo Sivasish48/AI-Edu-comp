@@ -13,7 +13,7 @@ interface TestimonialsSectionProps {
   className?: string
 }
 
-export function TestimonialsSection({ 
+ function TestimonialsSection({ 
   title,
   description,
   testimonials,
@@ -56,5 +56,7 @@ export function TestimonialsSection({
     </section>
   )
 }
+
+export { TestimonialsSection }
 
 

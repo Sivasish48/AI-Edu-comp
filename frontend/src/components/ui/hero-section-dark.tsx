@@ -3,6 +3,8 @@ import { cn } from "../../lib/utils"
 import { ChevronRight } from "lucide-react"
 import { TabsTrigger } from "../ui/tabs" // Make sure to import TabsTrigger
 import { AIExpertCards } from "../FeatureExpert"
+import { TestimonialsSectionDemo } from "../Testimonial"
+
 
 interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string
@@ -139,7 +141,12 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
       <div className="relative z-10 w-full">
         <AIExpertCards />
       </div>
+      <TestimonialsSectionDemo />
     </main>
+    <div>
+   
+    </div>
+    
         </section>
       </div>
     )
