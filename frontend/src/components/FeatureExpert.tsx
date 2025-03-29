@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
 import { MessageSquare } from "lucide-react";
 
 type Expert = {
   name: string;
   subject: string;
-  description: string;
+  keywords: string[];
   imageSrc: string;
 };
 
@@ -15,45 +16,80 @@ export function AIExpertCards() {
 
   const experts: Expert[] = [
     {
-      name: "Dr. Ada Lovelace",
-      subject: "Mathematics",
-      description: "Expert in calculus, algebra, and mathematical reasoning with 10+ years of teaching experience.",
-      imageSrc: "/public/Oops.png",
-    },
-    {
-      name: "Prof. Alan Turing",
-      subject: "Computer Science",
-      description: "Specializes in algorithms, data structures, and computational theory.",
+      name: "Dr. Alan Turing",
+      subject: "Operating Systems",
+      keywords: [
+        "Process Management", 
+        "Memory Allocation", 
+        "Scheduling",
+        "Concurrency",
+        "Virtual Memory"
+      ],
       imageSrc: "/public/Os.png",
     },
     {
-      name: "Dr. Marie Curie",
-      subject: "Physics",
-      description: "Expert in quantum mechanics, thermodynamics, and nuclear physics.",
-      imageSrc: "/public/Cn.png",
+      name: "Dr. Barbara Liskov",
+      subject: "OOP Principles",
+      keywords: [
+        "Encapsulation", 
+        "Inheritance", 
+        "Polymorphism",
+        "Abstraction",
+        "Design Patterns",
+      ],
+      imageSrc: "/public/Oops.png",
     },
     {
-      name: "Prof. Charles Darwin",
-      subject: "Biology",
-      description: "Specializes in evolutionary biology, genetics, and natural selection.",
-      imageSrc: "/public/Cs.png",
-    },
-    {
-      name: "Dr. Rosalind Franklin",
-      subject: "Chemistry",
-      description: "Expert in organic chemistry, molecular structures, and biochemistry.",
+      name: "Dr. Donald Knuth",
+      subject: "Data Structures",
+      keywords: [
+        "Algorithms", 
+        "Complexity Analysis", 
+        "Optimization",
+        "Dynamic Programming"
+      ],
       imageSrc: "/public/Dsa.png",
     },
     {
-      name: "Prof. Nikola Tesla",
-      subject: "Engineering",
-      description: "Specializes in electrical engineering, mechanics, and innovation.",
+      name: "Dr. Vint Cerf",
+      subject: "Computer Networking",
+      keywords: [
+        "Routing Protocols", 
+        "Network Security",
+        "DNS",
+        "Load Balancing"
+      ],
+      imageSrc: "/public/Cn.png",
+    },
+    {
+      name: "Dr. Fei-Fei Li",
+      subject: "AI & ML",
+      keywords: [
+        "Neural Networks", 
+        "Computer Vision", 
+        "NLP",
+        "Deep Learning",
+        "Reinforcement Learning",
+        "Model Optimization"
+      ],
       imageSrc: "/public/Mlai.png",
+    },
+    {
+      name: "Dr. Michael Stonebraker",
+      subject: "Database Systems",
+      keywords: [
+
+        "Query Optimization",
+        "Indexing",
+        "Transactions",
+        "Database Design"
+      ],
+      imageSrc: "/public/Cs.png",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 md:px-8 w-full">
+    <div className="flex flex-wrap justify-center gap-10 max-w-7xl mx-auto px-4 w-full">
       {experts.map((expert, index) => (
         <ExpertCard 
           key={expert.name} 
@@ -83,7 +119,7 @@ const ExpertCard = React.memo(
       onMouseEnter={() => setHovered(index)}
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "rounded-xl overflow-hidden h-[26rem] w-[20rem] transition-all duration-300 flex flex-col",
+        "rounded-xl overflow-hidden h-[35rem] w-[20rem] transition-all duration-300 flex flex-col gap-4",
         "bg-[#121218] border border-[#2a2a35] mx-auto",
         hovered !== null && hovered !== index && "opacity-80",
         hovered === index && [
@@ -93,21 +129,21 @@ const ExpertCard = React.memo(
         ],
       )}
     >
-      {/* Image section - now exactly matches card width */}
-      <div className="relative h-[50%] w-full overflow-hidden">
+      {/* Image section */}
+      <div className="relative h-[55%] w-full overflow-hidden">
         <img
           src={expert.imageSrc || "/placeholder.svg"}
           alt={expert.name}
           className={cn(
-            "w-full h-full object-cover object-center transition-transform duration-300 brightness-100",
+            "w-full h-full object-cover object-center transition-transform duration-300",
             hovered === index && "scale-105"
           )}
         />
       </div>
 
-      {/* Content section */}
-      <div className="flex flex-col p-5 h-[50%]">
-        <div className="mb-2 space-y-1">
+      {/* Content section with increased space for badges */}
+      <div className="flex flex-col p-5 h-[45%]">
+        <div className="mb-3 space-y-1">
           <h3 className="text-xl font-semibold text-white">
             {expert.name}
           </h3>
@@ -116,9 +152,17 @@ const ExpertCard = React.memo(
           </p>
         </div>
 
-        <p className="text-sm text-gray-300 mb-4 line-clamp-3 leading-relaxed">
-          {expert.description}
-        </p>
+        <div className="flex flex-wrap gap-2 mb-4 min-h-[6rem]">
+          {expert.keywords.map((keyword) => (
+            <Badge 
+              key={keyword}
+              variant="outline"
+              className="text-[0.7rem] text-purple-300 border-purple-400/30 bg-purple-900/10 hover:bg-purple-900/20 px-2 py-1"
+            >
+              {keyword}
+            </Badge>
+          ))}
+        </div>
 
         <Button
           className={cn(
