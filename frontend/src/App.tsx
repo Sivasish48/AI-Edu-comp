@@ -3,6 +3,7 @@
 import './App.css'
 
 import  HeroSection  from './components/HeroSection'
+import { TestimonialsSectionDemo } from './components/Testimonial'
 
 function App() {
  
@@ -10,6 +11,7 @@ function App() {
   return (
     <>
   <HeroSection />
+  <TestimonialsSectionDemo />
   </>
   )
 }

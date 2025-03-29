@@ -123,7 +123,7 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
               </div>
             </div>
           </div>
-          <main className="flex min-h-screen flex-col items-center justify-center py-16 px-4 bg-[#0c0c10]">
+          <main className="flex min-h-screen flex-col items-center justify-center py-16 px-4">
       <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-5 bg-fixed"></div>
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/5"></div>
 

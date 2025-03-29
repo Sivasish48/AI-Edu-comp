@@ -84,7 +84,7 @@ export function AIExpertCards() {
         "Transactions",
         "Database Design"
       ],
-      imageSrc: "/public/Cs.png",
+      imageSrc: "/public/Db.png",
     },
   ];
 
