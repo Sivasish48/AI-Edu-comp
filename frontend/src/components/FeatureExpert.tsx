@@ -166,7 +166,7 @@ const ExpertCard = React.memo(
 
         <Button
           className={cn(
-            "w-full mt-auto transition-all duration-200 flex items-center justify-center gap-2",
+            "w-full mt-auto transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer",
             "bg-[#1e1e2a] hover:bg-purple-900 text-white border border-[#3b3b4f]",
             hovered === index && "shadow-[0_0_10px_rgba(139,92,246,0.2)]"
           )}

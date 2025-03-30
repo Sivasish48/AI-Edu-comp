@@ -130,7 +130,7 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/5"></div>
 
       <div className="text-center mb-16 relative z-10">
-        <h1 className="text-4xl font-normal mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-orange-200">
+        <h1 className="text-4xl lg:text-6xl font-normal mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-orange-200">
           AI Education Companions
         </h1>
         <p className="text-lg text-gray-400 max-w-2xl mx-auto">
