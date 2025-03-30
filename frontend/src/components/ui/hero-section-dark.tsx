@@ -5,6 +5,7 @@ import { TabsTrigger } from "../ui/tabs" // Make sure to import TabsTrigger
 import { AIExpertCards } from "../FeatureExpert"
 import { TestimonialsSectionDemo } from "../Testimonial"
 import CTASection from "../Cta"
+import { StackedCircularFooter } from "./stacked-circular-footer"
 
 
 interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -146,6 +147,9 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
       <div className="relative z-10 w-full">
   <CTASection />
 </div>
+<div className="block">
+      <StackedCircularFooter />
+    </div>
     </main>
     <div>
    
