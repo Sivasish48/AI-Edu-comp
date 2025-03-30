@@ -4,9 +4,9 @@ export default function CTASection() {
   return (
     <main className=" w-full py-12">
       <CTA
-        smallText="Get started"
-        title="Start building with Launch UI"
-        description="Get started with Launch UI and build your landing page in no time"
+       smallText="Join the future of learning"
+       title="Accelerate Education"
+       description="Get personalized AI-powered tutoring in computer science concepts. Sign up for free today."
         action={{
           text: "Get Started",
           href: "#",
