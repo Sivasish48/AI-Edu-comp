@@ -33,9 +33,8 @@ const testimonials = [
 export function TestimonialsSectionDemo() {
   return (
     <TestimonialsSection
-      title="Trusted by developers worldwide"
-      description="Join thousands of developers who are already building the future with our AI platform"
-      testimonials={testimonials}
-    />
+      title="Trusted by students worldwide"
+
+      testimonials={testimonials} description={""}    />
   )
 }
