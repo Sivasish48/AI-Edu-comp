@@ -20,8 +20,7 @@ export function TestimonialCard({
 }: TestimonialCardProps) {
   return (
     <div className={cn(
-      "flex flex-col rounded-lg border-t",
-      "border-1 border-purple-800",
+      "flex flex-col rounded-lg border-t border border-purple-600",
       "bg-gradient-to-b from-muted/50 to-muted/10",
       "p-4 text-start sm:p-6",
       "hover:from-muted/60 hover:to-muted/20",

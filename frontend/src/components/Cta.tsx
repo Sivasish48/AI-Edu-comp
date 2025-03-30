@@ -6,7 +6,7 @@ export default function CTASection() {
       <CTA
        smallText="Join the future of learning"
        title="Accelerate Education"
-       description="Get personalized AI-powered tutoring in computer science concepts. Sign up for free today."
+       description="Get personalized AI-powered tutoring in computer science concepts."
         action={{
           text: "Get Started",
           href: "#",
