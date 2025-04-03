@@ -1,9 +1,310 @@
-import React from 'react'
+import { useRef, useEffect, useState } from "react";
+import axios from "axios";
+import { Avatar } from "../components/ui/avatar";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { cn } from "../lib/utils";
+import { Send, Copy, Edit, ChevronRight } from "lucide-react";
 
-function Os() {
-  return (
-    <div>Os</div>
-  )
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
 }
 
-export default Os
+export default function Os() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editContent, setEditContent] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const subjectExpert = 'operating systems';
+
+  // Format AI response with better styling
+  const formatResponse = (text: string) => {
+    let formatted = text
+      // Bold text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      // Headers
+      .replace(/^(#+\s.*$)/gm, '<strong>$1</strong>')
+      // Code blocks
+      .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+      // Inline code
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // Lists
+      .replace(/^\s*[\-*+]\s+(.*$)/gm, '• $1')
+      // Steps
+      .replace(/^\s*\d+\.\s+(.*$)/gm, '→ $1')
+      // Line breaks
+      .replace(/\n/g, '<br/>');
+
+    return formatted;
+  };
+
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  const startEditing = (id: string, content: string) => {
+    setEditingId(id);
+    setEditContent(content);
+  };
+
+  const saveEdit = (id: string) => {
+    setMessages(messages.map(msg => 
+      msg.id === id ? { ...msg, content: editContent } : msg
+    ));
+    setEditingId(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: input
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const apiMessages = [
+        ...messages.map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'model',
+          parts: msg.content
+        })),
+        {
+          role: 'user',
+          parts: input
+        }
+      ];
+
+      // Using Axios for the API call
+      const response = await axios.post('http://localhost:5000/ai/expert-chat', {
+        messages: apiMessages,
+        subjectExpert
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      const aiMessage: Message = {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: response.data.message
+      };
+
+      setMessages(prev => [...prev, aiMessage]);
+    } catch (error) {
+      console.error('Error:', error);
+      const errorMessage: Message = {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: 'Sorry, there was an error processing your request. Please try again.'
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  return (
+    <div className="flex flex-col h-screen bg-[#0f0a19]">
+      <div className="flex-1 overflow-y-auto p-4">
+        <div className="max-w-5xl mx-auto space-y-6">
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-[70vh] text-center animate-fade-in">
+              <Avatar className="h-24 w-24 mb-6 transition-transform duration-300 hover:scale-110">
+                <img
+                  src="/os-expert.png"
+                  alt="OS Expert"
+                  className="rounded-full bg-[#2d1d4a]"
+                />
+              </Avatar>
+              <h1 className="text-2xl font-bold text-white mb-2">Operating Systems Expert</h1>
+              <p className="text-purple-300 max-w-md">
+                Ask me about process scheduling, memory management, deadlocks, or any OS concepts.
+              </p>
+            </div>
+          ) : (
+            messages.map((message) => (
+              <div
+                key={message.id}
+                className={cn(
+                  "flex w-full transition-all duration-300 ease-out",
+                  message.role === "user" ? "justify-end" : "justify-start",
+                  message.role === "assistant" ? "hover:bg-[#0f0a19]/10" : ""
+                )}
+              >
+                <div
+                  className={cn(
+                    "flex max-w-[90%] md:max-w-[80%] transition-all duration-300",
+                    message.role === "user" ? "flex-row-reverse" : "flex-row",
+                  )}
+                >
+                  {message.role !== "user" && (
+                    <div className="flex-shrink-0 mr-3">
+                      <Avatar className="h-8 w-8 transition-transform duration-300 hover:scale-110">
+                        <img
+                          src="/os-expert-icon.png"
+                          alt="OS Expert"
+                          className="rounded-full bg-[#2d1d4a]"
+                        />
+                      </Avatar>
+                    </div>
+                  )}
+                  
+                  <div
+                    className={cn(
+                      "rounded-2xl px-4 py-3 relative group transition-all duration-300",
+                      message.role === "user" 
+                        ? "bg-[#6e41b4] text-white" 
+                        : "bg-[#1e1433] text-gray-100 w-full",
+                      editingId === message.id ? "ring-2 ring-purple-500" : ""
+                    )}
+                  >
+                    {editingId === message.id ? (
+                      <div className="flex flex-col">
+                        <textarea
+                          value={editContent}
+                          onChange={(e) => setEditContent(e.target.value)}
+                          className="w-full bg-[#2d1d4a] text-white p-2 rounded mb-2"
+                          rows={4}
+                          autoFocus
+                        />
+                        <div className="flex justify-end space-x-2">
+                          <Button 
+                            onClick={() => saveEdit(message.id)}
+                            className="bg-purple-600 hover:bg-purple-700 text-sm"
+                          >
+                            Save
+                          </Button>
+                          <Button 
+                            onClick={() => setEditingId(null)}
+                            variant="outline"
+                            className="text-sm"
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="flex justify-between items-center mb-1">
+                          {message.role !== "user" && (
+                            <div className="font-medium text-purple-300">OS Expert</div>
+                          )}
+                          <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button 
+                              onClick={() => copyToClipboard(message.content)}
+                              className="text-gray-400 hover:text-purple-300 transition-colors"
+                              title="Copy"
+                            >
+                              <Copy size={16} />
+                            </button>
+                            {message.role === "user" && (
+                              <button 
+                                onClick={() => startEditing(message.id, message.content)}
+                                className="text-gray-400 hover:text-purple-300 transition-colors"
+                                title="Edit"
+                              >
+                                <Edit size={16} />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <div 
+                          className={cn(
+                            "whitespace-pre-wrap",
+                            message.role === 'assistant' ? "prose prose-invert max-w-none" : ""
+                          )}
+                          dangerouslySetInnerHTML={{ 
+                            __html: message.role === 'assistant' 
+                              ? formatResponse(message.content) 
+                              : message.content 
+                          }}
+                        />
+                        
+                        {message.role === 'assistant' && (
+                          <div className="mt-2 pt-2 border-t border-[#3d2a5a] text-xs text-purple-300 opacity-70">
+                            <div className="flex items-center">
+                              <ChevronRight size={12} className="mr-1" />
+                              <span>Specialized in {subjectExpert.replace(/\b\w/g, l => l.toUpperCase())}</span>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+          
+          {isLoading && (
+            <div className="flex w-full justify-start">
+              <div className="flex max-w-[90%] md:max-w-[80%] animate-pulse">
+                <div className="flex-shrink-0 mr-3">
+                  <Avatar className="h-8 w-8">
+                    <img
+                      src="/os-expert-icon.png"
+                      alt="OS Expert"
+                      className="rounded-full bg-[#2d1d4a]"
+                    />
+                  </Avatar>
+                </div>
+                <div className="rounded-2xl px-4 py-3 bg-[#1e1433] text-gray-100 w-full">
+                  <div className="font-medium text-purple-300 mb-1">OS Expert</div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 rounded-full bg-purple-400 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-purple-400 animate-bounce delay-150"></div>
+                    <div className="w-2 h-2 rounded-full bg-purple-400 animate-bounce delay-300"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
+      
+      <div className="border-t border-[#2d1d4a] bg-[#0f0a19] p-4">
+        <form 
+          onSubmit={handleSubmit} 
+          className="max-w-5xl mx-auto flex items-center space-x-2 transition-all duration-300"
+        >
+          <Input
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Ask about process scheduling, memory management..."
+            className="flex-1 bg-[#1e1433] border-[#3d2a5a] text-white placeholder:text-gray-400 focus-visible:ring-purple-500 transition-all duration-300"
+          />
+          <Button
+            type="submit"
+            size="icon"
+            disabled={isLoading || !input.trim()}
+            className="bg-[#6e41b4] hover:bg-[#8351d4] text-white transition-all duration-300 hover:scale-105"
+          >
+            <Send className="h-4 w-4" />
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
+}
