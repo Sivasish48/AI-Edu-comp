@@ -6,12 +6,12 @@ dotenv.config();
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!);
 
 const VALID_EXPERTS = [
-  'operatingSystem',
-  'computerNetworking',
-  'oops',
-  'dsa',
-  'dbms',
-  'aiml'
+  'operating systems',
+  'computer networking',
+  'Oops',
+  'data structures and algorithms',
+  'database management systems',
+  'artificial intelligence and machine learning'
 ];
 
 const generateContent = async (messages: Array<{role: string, parts: string}>, subjectExpert: string) => {
