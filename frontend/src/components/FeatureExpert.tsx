@@ -3,16 +3,19 @@ import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { MessageSquare } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type Expert = {
   name: string;
   subject: string;
   keywords: string[];
   imageSrc: string;
+  route: string;
 };
 
 export function AIExpertCards() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   const experts: Expert[] = [
     {
@@ -26,6 +29,7 @@ export function AIExpertCards() {
         "Virtual Memory"
       ],
       imageSrc: "/public/Os.png",
+      route: "/os"
     },
     {
       name: "Dr. Barbara Liskov",
@@ -38,6 +42,7 @@ export function AIExpertCards() {
         "Design Patterns",
       ],
       imageSrc: "/public/Oops.png",
+      route: "/oops"
     },
     {
       name: "Dr. Donald Knuth",
@@ -49,6 +54,7 @@ export function AIExpertCards() {
         "Dynamic Programming"
       ],
       imageSrc: "/public/Dsa.png",
+      route: "/dsa"
     },
     {
       name: "Dr. Vint Cerf",
@@ -60,6 +66,7 @@ export function AIExpertCards() {
         "Load Balancing"
       ],
       imageSrc: "/public/Cn.png",
+      route: "/computer-networking"
     },
     {
       name: "Dr. Fei-Fei Li",
@@ -73,20 +80,25 @@ export function AIExpertCards() {
         "Model Optimization"
       ],
       imageSrc: "/public/Mlai.png",
+      route: "/aiml"
     },
     {
       name: "Dr. Michael Stonebraker",
       subject: "Database Systems",
       keywords: [
-
         "Query Optimization",
         "Indexing",
         "Transactions",
         "Database Design"
       ],
       imageSrc: "/public/Db.png",
+      route: "/dbms"
     },
   ];
+
+  const handleStartConversation = (route: string) => {
+    navigate(route);
+  };
 
   return (
     <div className="flex flex-wrap justify-center gap-10 max-w-7xl mx-auto px-4 w-full">
@@ -96,7 +108,8 @@ export function AIExpertCards() {
           expert={expert} 
           index={index} 
           hovered={hovered} 
-          setHovered={setHovered} 
+          setHovered={setHovered}
+          onStartConversation={handleStartConversation}
         />
       ))}
     </div>
@@ -109,11 +122,13 @@ const ExpertCard = React.memo(
     index,
     hovered,
     setHovered,
+    onStartConversation,
   }: {
     expert: Expert;
     index: number;
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
+    onStartConversation: (route: string) => void;
   }) => (
     <div
       onMouseEnter={() => setHovered(index)}
@@ -165,6 +180,7 @@ const ExpertCard = React.memo(
         </div>
 
         <Button
+          onClick={() => onStartConversation(expert.route)}
           className={cn(
             "w-full mt-auto transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer",
             "bg-[#1e1e2a] hover:bg-purple-900 text-white border border-[#3b3b4f]",
