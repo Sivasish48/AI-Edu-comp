@@ -252,7 +252,7 @@ export default function Aiml() {
                 </div>
                 <div className="rounded-2xl px-4 py-3 bg-zinc-900 text-gray-100 w-full">
                   <div className="font-medium text-purple-400 mb-3">
-                    Training model response...
+                    generating...
                   </div>
                   <div className="flex justify-center items-center">
                     <div className="w-16 h-16 relative">

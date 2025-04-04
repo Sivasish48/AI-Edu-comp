@@ -252,7 +252,7 @@ export default function ComputerNetworking() {
                 </div>
                 <div className="rounded-2xl px-4 py-3 bg-zinc-900 text-gray-100 w-full">
                   <div className="font-medium text-purple-400 mb-3">
-                    Establishing connection...
+                    generating...
                   </div>
                   <div className="flex justify-center items-center">
                     <div className="w-16 h-16 relative">
