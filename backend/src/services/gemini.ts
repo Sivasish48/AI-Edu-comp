@@ -7,10 +7,10 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!);
 const VALID_EXPERTS = [
   "operating systems",
   "computer networking",
-  "Oops",
+  "object-oriented programming",
   "data structures and algorithms",
   "database management systems",
-  "artificial intelligence and machine learning",
+  "artificial intelligence,machine learning,deep learning and data science",
 ];
 
 const generateContent = async (
