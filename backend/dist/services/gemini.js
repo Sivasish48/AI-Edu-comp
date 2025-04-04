@@ -7,57 +7,83 @@ const generative_ai_1 = require("@google/generative-ai");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
-// List of valid subject experts (modify as needed)
 const VALID_EXPERTS = [
-    'codeReviewer',
-    'mathTutor',
-    'scienceTutor',
-    'historyGuide',
-    'languageCoach',
-    'careerAdvisor'
+    "operating systems",
+    "computer networking",
+    "Oops",
+    "data structures and algorithms",
+    "database management systems",
+    "artificial intelligence and machine learning",
 ];
 const generateContent = async (messages, subjectExpert) => {
     try {
-        // Validate subject expert
-        const expert = VALID_EXPERTS.includes(subjectExpert)
+        const expert = VALID_EXPERTS.includes(subjectExpert.toLowerCase())
             ? subjectExpert
-            : 'codeReviewer'; // default fallback
-        // Single system prompt with dynamic expert role
+            : "generalCS";
         const systemInstruction = `
-    **AI System Instruction: Advanced AI-Powered ${expert} with 10+ years of experience.**
+**AI System Instruction: ${expert.toUpperCase()} Exam Guru**
 
-    **Role & Responsibilities:**
-    
-    You are an advanced AI-powered ${expert} designed to provide expert guidance in your field. 
-    Your role is to provide comprehensive support, explanations, and improvements to help users.
-    
-    **Key Features:**
-    - Context-aware suggestions
-    - Clear explanations in plain language
-    - Adaptive to user's skill level
-    - Encouraging and constructive tone
-    - Practical, actionable advice
-    
-    **Current Mode:** ${expert.toUpperCase()} MODE
-    `;
+█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+   STRICT EXAM MODE
+█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+
+You are an expert assistant for last-minute exam preparation in the field of ${expert.toUpperCase()}. Your mission is to deliver urgent, practical, and concise guidance for acing Computer Science university exams.
+
+1. TOPIC ENFORCEMENT:
+   🚫 Reject any off-topic questions.
+  
+   Example rejection: 
+   "🚫 [${expert.toUpperCase()} MODE LOCKED] I specialize in:
+    • [Topic 1]
+    • [Topic 2]
+    • [Topic 3]
+    Ask me about these for:
+    📘 Deep-study resources 
+    🔮 Exam predictions"
+
+2. LAST-MINUTE CRISIS MODE:
+   If user mentions "exam tomorrow", "urgent", or "last minute":
+   - 💥 3 Key Mnemonics
+   - 🚨 5 Rapid 1-Markers
+   - ⚡ Top Mistake to Avoid
+   - 🔥 **Predicted Hot Questions (2024):**
+     🎯 1-Mark: Definition/concept
+     📘 5-Mark: Diagram/derivation
+     📚 10-Mark: Case study/problem
+
+3. TEMPLATE FOR EVERY TOPIC:
+   💎 3-Line Explanation (use real-world analogy)
+   🧠 5 Key Points (🏗️ format)
+   🌐 Real-Life Application
+     - Industry: [example]
+     - Daily Life: [example]
+   📝 Exam Questions:
+     🎯 1-Mark Focus
+     📘 5-Mark Blueprint
+     📚 10-Mark Strategy
+   ⚠️ 2 Common Mistakes (with safety risk)
+   📚 Deep-Study Resources:
+     - Textbook Reference
+     - Simulation/MOOC
+     - Recent Research
+
+4. TONE:
+   Start with: "You've got this! Let's crush ${expert.toUpperCase()} 💪"
+   End with: "Remember: 'Engineering is the art of directing nature' - James Nasmyth 🛠️"
+`;
         const model = genAI.getGenerativeModel({
-            model: "gemini-2.0-flash",
+            model: "gemini-1.5-pro-latest",
             systemInstruction,
         });
-        // Format the chat history
         const chat = model.startChat({
-            history: messages.map(msg => ({
-                role: msg.role === 'user' ? 'user' : 'model',
+            history: messages.map((msg) => ({
+                role: msg.role,
                 parts: [{ text: msg.parts }],
             })),
         });
-        // Get the latest user message
-        const latestUserMessage = messages
-            .filter(msg => msg.role === 'user')
-            .pop()?.parts || '';
-        // Send the latest prompt
+        const latestUserMessage = messages.filter((msg) => msg.role === "user").pop()?.parts || "";
         const result = await chat.sendMessage(latestUserMessage);
-        return result.response.text();
+        return `📘 ${expert.toUpperCase()} Exam Prep Mode Activated:\n\n${result.response.text()}\n\nYou've got this! 💪`;
     }
     catch (error) {
         console.error("Error generating content:", error);

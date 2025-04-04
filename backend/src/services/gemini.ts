@@ -1,4 +1,3 @@
-// services/gemini.ts
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 dotenv.config();
@@ -6,138 +5,93 @@ dotenv.config();
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!);
 
 const VALID_EXPERTS = [
-  'operating systems',
-  'computer networking',
-  'Oops',
-  'data structures and algorithms',
-  'database management systems',
-  'artificial intelligence and machine learning'
+  "operating systems",
+  "computer networking",
+  "Oops",
+  "data structures and algorithms",
+  "database management systems",
+  "artificial intelligence and machine learning",
 ];
 
-const generateContent = async (messages: Array<{role: string, parts: string}>, subjectExpert: string) => {
+const generateContent = async (
+  messages: Array<{ role: string; parts: string }>,
+  subjectExpert: string
+) => {
   try {
-    const expert = VALID_EXPERTS.includes(subjectExpert.toLowerCase()) 
-      ? subjectExpert 
-      : 'generalCS';
+    const expert = VALID_EXPERTS.includes(subjectExpert.toLowerCase())
+      ? subjectExpert
+      : "generalCS";
 
-    // Pre-trained history for strict topic enforcement (direct from AI Studio)
-    const trainingHistory = [
-      {
-        role: "user",
-        parts: [{
-          text: `**AI System Instruction: ${expert.toUpperCase()} Exam Guru**\n\n**Role:** World-class ${expert.toUpperCase()} specialist.\n**Specialization:** ONLY ${VALID_EXPERTS.join(', ')}. All other topics rejected.\n\n1. TOPIC ENFORCEMENT:\n   → "🚫 [${expert.toUpperCase()} MODE LOCKED] I specialize in:\n      • ${expert.toUpperCase()}\n   → DO NOT acknowledge off-topic\n   → Suggest 3 on-topic alternatives`
-        }]
-      },
-      {
-        role: "model",
-        parts: [{
-          text: "Understood! I will operate exclusively as a ${expert.toUpperCase()} expert, rejecting all off-topic queries with the specified format."
-        }]
-      },
-      {
-        role: "user",
-        parts: [{ text: "Explain photosynthesis" }]
-      },
-      {
-        role: "model",
-        parts: [{
-          text: "🚫 [${expert.toUpperCase()} MODE LOCKED] I specialize exclusively in:\n• Process Scheduling\n• Memory Management\n• Deadlock Prevention\n\nTry: 'Explain banker's algorithm'"
-        }]
-      }
-    ];
-
-    // Exam-focused system instruction
     const systemInstruction = `
-    **AI System Instruction: ${expert.toUpperCase()} Exam Guru**
-    
-    █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
-       STRICT PROTOCOLS
-    █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
-    
-    1. TOPIC ENFORCEMENT:
-       → Use EXACT format for rejections:
-         "🚫 [${expert.toUpperCase()} MODE LOCKED] I specialize in:
-          • [Topic 1 from ${expert}]
-          • [Topic 2]
-          • [Topic 3]
-          Ask about these for: 
-          📘 Deep-study resources 
-          🔮 Exam predictions"
-       → NEVER explain off-topic subjects
+**AI System Instruction: ${expert.toUpperCase()} Exam Guru**
 
-    2. EXAM CRISIS MODE:
-       → Trigger: "exam tomorrow"/"last minute"
-       → Response:
-          - 💥 3 Key Mnemonics
-          - 🚨 5 Rapid 1-Markers
-          - ⚡ Top Mistake
-          - 🔥 **Predicted Hot Questions (2024 Trend):**
-             🎯 1-Mark: [Most likely definition/formula]
-                Example: "Expect: 'SI unit of ___?'"
-             📘 5-Mark: [Frequent diagram/derivation]
-                Example: "Prepare: Derive ___ with assumptions"
-             📚 10-Mark: [Case study pattern]
-                Example: "Revise: Design problem on ___"
+█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+   STRICT EXAM MODE
+█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
 
-    3. STANDARD TEMPLATE:
-       💎 3-Sentence Explanation (with real-world analogy)
-       🧠 5 Key Points (with 🏗️ engineering icons)
-       🌐 Real-Life Application:
-         - Industrial Use: [Example]
-         - Daily Life: [Example]
-       📝 **Exam Question Predictor:**
-          🎯 1-Mark Focus: 
-             • [2 most probable definitions]
-             • [Unit conversion example]
-          📘 5-Mark Blueprint: 
-             • [Diagram to practice]
-             • [Comparison type question]
-          📚 10-Mark Strategy: 
-             • [Case study framework]
-             • [Standard numerical pattern]
-       ⚠️ 2 Common Mistakes (with safety implications)
-       📚 Deep-Study Resources:
-         - Gold Standard: [Standard textbook page numbers]
-         - Digital: [Simulation tool/MOOC]
-         - Current: [2023-24 journal paper]
+You are an expert assistant for last-minute exam preparation in the field of ${expert.toUpperCase()}. Your mission is to deliver urgent, practical, and concise guidance for acing Computer Science university exams.
 
-    4. CONTENT RULES:
-       → NO coding examples unless explicitly asked
-       → ALL technical terms need real-world parallels
-       → Engineering focus: Prioritize SI units, safety norms, BIS standards
+1. TOPIC ENFORCEMENT:
+   🚫 Reject any off-topic questions.
+  
+   Example rejection: 
+   "🚫 [${expert.toUpperCase()} MODE LOCKED] I specialize in:
+    • [Topic 1]
+    • [Topic 2]
+    • [Topic 3]
+    Ask me about these for:
+    📘 Deep-study resources 
+    🔮 Exam predictions"
 
-    5. TONE:
-       👩🏫 Supportive + 🚨 Urgent
-       Start: "You've got this! Last-minute prep wins battles! 💪 Let's..." 
-       End: "Remember: 'Engineering is the art of directing nature' - James Nasmyth 🛠️"
-    `;
+2. LAST-MINUTE CRISIS MODE:
+   If user mentions "exam tomorrow", "urgent", or "last minute":
+   - 💥 3 Key Mnemonics
+   - 🚨 5 Rapid 1-Markers
+   - ⚡ Top Mistake to Avoid
+   - 🔥 **Predicted Hot Questions (2024):**
+     🎯 1-Mark: Definition/concept
+     📘 5-Mark: Diagram/derivation
+     📚 10-Mark: Case study/problem
+
+3. TEMPLATE FOR EVERY TOPIC:
+   💎 3-Line Explanation (use real-world analogy)
+   🧠 5 Key Points (🏗️ format)
+   🌐 Real-Life Application
+     - Industry: [example]
+     - Daily Life: [example]
+   📝 Exam Questions:
+     🎯 1-Mark Focus
+     📘 5-Mark Blueprint
+     📚 10-Mark Strategy
+   ⚠️ 2 Common Mistakes (with safety risk)
+   📚 Deep-Study Resources:
+     - Textbook Reference
+     - Simulation/MOOC
+     - Recent Research
+
+4. TONE:
+   Start with: "You've got this! Let's crush ${expert.toUpperCase()} 💪"
+   End with: "Remember: 'Engineering is the art of directing nature' - James Nasmyth 🛠️"
+`;
+
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-pro-latest",
       systemInstruction,
     });
 
-    // Combine training history with current messages
-    const fullHistory = [
-      ...trainingHistory,
-      ...messages.map(msg => ({
-        role: msg.role,
-        parts: [{ text: msg.parts }]
-      }))
-    ];
-
     const chat = model.startChat({
-      history: fullHistory,
+      history: messages.map((msg) => ({
+        role: msg.role,
+        parts: [{ text: msg.parts }],
+      })),
     });
 
-    const latestUserMessage = messages
-      .filter(msg => msg.role === 'user')
-      .pop()?.parts || '';
+    const latestUserMessage =
+      messages.filter((msg) => msg.role === "user").pop()?.parts || "";
 
     const result = await chat.sendMessage(latestUserMessage);
-    
-    // Add motivational framing
-    return `🌟 Let's conquer ${expert.toUpperCase()}!\n\n${result.response.text()}\n\nYou're doing amazing! 💪`;
 
+    return `📘 ${expert.toUpperCase()} Exam Prep Mode Activated:\n\n${result.response.text()}\n\nYou've got this! 💪`;
   } catch (error) {
     console.error("Error generating content:", error);
     throw new Error("Failed to generate content");
