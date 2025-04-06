@@ -10,8 +10,8 @@ function HeroSection() {
       gradient: "AI-powered subject experts.",
     }}
     description="Master complex topics through smart, exam-focused guidance. Learn faster and perform hard work in a smart way."
-    ctaText="Start Learning Free"
-    ctaHref="#"
+    ctaText="Scroll Down To Chat WIth AI Experts"
+    ctahref="/ai-expert"
 />
 
   )

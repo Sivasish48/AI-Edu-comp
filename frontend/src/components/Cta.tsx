@@ -9,7 +9,7 @@ export default function CTASection() {
        description="Get personalized AI-powered tutoring in computer science concepts."
         action={{
           text: "Get Started",
-          href: "#",
+          href: "/ai-expert",
         }}
       />
     </main>

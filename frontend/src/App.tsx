@@ -7,12 +7,14 @@ import Dbms from "./pages/Dbms";
 import Os from "./pages/Os";
 import Dsa from "./pages/Dsa";
 import Aiml from "./pages/Aiml";
+import { AIExpertPage } from "./pages/AiExpertPage";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/ai-expert" element={<AIExpertPage />} />
         <Route path="/computer-networking" element={<ComputerNetworking />} />
         <Route path="/oops" element={<Oops />} />
         <Route path="/dbms" element={<Dbms />} />
