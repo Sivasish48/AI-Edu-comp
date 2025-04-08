@@ -8,48 +8,37 @@ import { StackedCircularFooter } from "./stacked-circular-footer";
 import { useNavigate } from "react-router-dom";
 
 interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  subtitle?: {
+  title: string;
+  subtitle: {
     regular: string;
     gradient: string;
   };
-  description?: string;
-  ctaText?: string;
-  ctahref?: string;
+  description: string;
+  ctaText: string;
+  ctahref: string;
 }
 
-const RetroGridDark = () => {
-  return (
-    <div className="pointer-events-none absolute size-full overflow-hidden [perspective:200px]">
-      <div className="absolute inset-0 [transform:rotateX(65deg)]">
-        <div className="animate-grid [background-image:linear-gradient(to_right,rgba(75,75,75,0.8)_1px,transparent_0),linear-gradient(to_bottom,rgba(75,75,75,0.8)_1px,transparent_0)] [background-repeat:repeat] [background-size:60px_60px] [height:300vh] [inset:0%_0px] [margin-left:-200%] [transform-origin:100%_0_0] [width:600vw]" />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-90%" />
+const RetroGridDark: React.FC = () => (
+  <div className="pointer-events-none absolute size-full overflow-hidden [perspective:200px]">
+    <div className="absolute inset-0 [transform:rotateX(65deg)]">
+      <div className="animate-grid [background-image:linear-gradient(to_right,rgba(75,75,75,0.8)_1px,transparent_0),linear-gradient(to_bottom,rgba(75,75,75,0.8)_1px,transparent_0)] [background-repeat:repeat] [background-size:60px_60px] [height:300vh] [inset:0%_0px] [margin-left:-200%] [transform-origin:100%_0_0] [width:600vw]" />
     </div>
-  );
-};
+    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-90%" />
+  </div>
+);
 
-const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
+export const HeroSectionDark = React.forwardRef<
+  HTMLDivElement,
+  HeroSectionDarkProps
+>(
   (
-    {
-      className,
-      title = "Build products for everyone",
-      subtitle = {
-        regular: "Designing your projects faster with ",
-        gradient: "the largest figma UI kit.",
-      },
-      description = "Sed ut perspiciatis unde omnis iste natus voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.",
-      ctaText = "Browse courses",
-      ctahref = "/ai-expert",
-      ...props
-    },
+    { className, title, subtitle, description, ctaText, ctahref, ...props },
     ref
   ) => {
     const navigate = useNavigate();
 
     const handleExpertNavigation = () => {
-      console.log("clicked");
-      navigate("/ai-expert", { replace: true });
+      navigate(ctahref, { replace: true });
     };
 
     return (
@@ -61,11 +50,13 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
         ref={ref}
         {...props}
       >
-        <div className="absolute top-0 z-[0] h-screen w-screen bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))]" />
+        {/* Background gradients */}
+        <div className="absolute top-0 z-0 h-screen w-screen bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))]" />
 
-        <section className="relative max-w-full mx-auto z-1">
+        <section className="relative max-w-full mx-auto">
           <RetroGridDark />
 
+          {/* Hero content */}
           <div className="max-w-screen-xl z-10 mx-auto px-4 py-28 gap-12 md:px-8">
             <div className="space-y-8 max-w-3xl mx-auto text-center">
               <div className="relative -top-2">
@@ -90,20 +81,22 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
             </div>
           </div>
 
+          {/* CTA Button */}
           <div className="items-center justify-center gap-x-3 space-y-1 sm:flex sm:space-y-0 mb-16">
             <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
               <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
               <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium backdrop-blur-3xl">
-                <a
+                <button
                   onClick={handleExpertNavigation}
                   className="inline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-700/30 via-purple-500/30 to-transparent text-white border-input border-[1px] border-white/10 hover:bg-gradient-to-tr hover:from-zinc-700/40 hover:via-purple-500/40 hover:to-transparent transition-all sm:w-auto py-4 px-10"
                 >
                   {ctaText}
-                </a>
+                </button>
               </div>
             </span>
           </div>
 
+          {/* Main content */}
           <main className="flex flex-col items-center justify-center py-16 px-4">
             <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-5 bg-fixed"></div>
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/5"></div>
@@ -118,20 +111,23 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
               </p>
             </div>
 
+            {/* Features section */}
             <div className="scroll-mt-16 w-full relative z-10">
               <AIExpertCards />
             </div>
 
+            {/* Testimonials section */}
             <div className="relative z-10 w-full">
               <TestimonialsSectionDemo />
             </div>
 
+            {/* CTA section */}
             <div className="relative z-10 w-full">
               <CTASection />
             </div>
           </main>
-          
-          {/* Footer section with proper positioning and z-index */}
+
+          {/* Footer with proper z-index */}
           <div className="relative z-20 w-full">
             <StackedCircularFooter />
           </div>
@@ -140,6 +136,5 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
     );
   }
 );
-HeroSectionDark.displayName = "HeroSectionDark";
 
-export { HeroSectionDark };
+HeroSectionDark.displayName = "HeroSectionDark";
