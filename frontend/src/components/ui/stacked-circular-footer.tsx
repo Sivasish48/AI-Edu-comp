@@ -3,7 +3,7 @@ import { Facebook, Linkedin, Twitter } from "lucide-react";
 
 function StackedCircularFooter() {
   return (
-    <footer className="bg-transparent text-white py-12 mt-16">
+    <footer className="bg-black text-white py-12 mt-16">
       {" "}
       {/* Added bg-black for contrast */}
       <div className="container mx-auto px-4 md:px-6">

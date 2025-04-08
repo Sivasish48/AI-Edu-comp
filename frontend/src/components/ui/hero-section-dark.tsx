@@ -7,7 +7,6 @@ import CTASection from "../Cta";
 import { StackedCircularFooter } from "./stacked-circular-footer";
 import { useNavigate } from "react-router-dom";
 
-
 interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   subtitle?: {
@@ -41,6 +40,7 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
       },
       description = "Sed ut perspiciatis unde omnis iste natus voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.",
       ctaText = "Browse courses",
+      ctahref = "/ai-expert",
       ...props
     },
     ref
@@ -90,11 +90,21 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
             </div>
           </div>
 
-        <a href="/ai-expert">
-          start
-        </a>
+          <div className="items-center justify-center gap-x-3 space-y-1 sm:flex sm:space-y-0 mb-16">
+            <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
+              <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+              <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium backdrop-blur-3xl">
+                <a
+                  onClick={handleExpertNavigation}
+                  className="inline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-700/30 via-purple-500/30 to-transparent text-white border-input border-[1px] border-white/10 hover:bg-gradient-to-tr hover:from-zinc-700/40 hover:via-purple-500/40 hover:to-transparent transition-all sm:w-auto py-4 px-10"
+                >
+                  {ctaText}
+                </a>
+              </div>
+            </span>
+          </div>
 
-          <main className="flex min-h-screen flex-col items-center justify-center py-16 px-4">
+          <main className="flex flex-col items-center justify-center py-16 px-4">
             <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-5 bg-fixed"></div>
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/5"></div>
 
@@ -119,11 +129,12 @@ const HeroSectionDark = React.forwardRef<HTMLDivElement, HeroSectionDarkProps>(
             <div className="relative z-10 w-full">
               <CTASection />
             </div>
-
-            <div className="block">
-              <StackedCircularFooter />
-            </div>
           </main>
+          
+          {/* Footer section with proper positioning and z-index */}
+          <div className="relative z-20 w-full">
+            <StackedCircularFooter />
+          </div>
         </section>
       </div>
     );
