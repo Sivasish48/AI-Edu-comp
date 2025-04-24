@@ -6,7 +6,7 @@ import { TestimonialsSectionDemo } from "../Testimonial";
 import CTASection from "../Cta";
 import { StackedCircularFooter } from "./stacked-circular-footer";
 import { useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -20,23 +20,23 @@ interface HeroSectionDarkProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const RetroGridDark: React.FC = () => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 1.5 }}
     className="pointer-events-none absolute size-full overflow-hidden [perspective:200px]"
   >
     <div className="absolute inset-0 [transform:rotateX(65deg)]">
-      <motion.div 
-        animate={{ 
-          backgroundPosition: ["0px 0px", "60px 60px"] 
+      <motion.div
+        animate={{
+          backgroundPosition: ["0px 0px", "60px 60px"],
         }}
-        transition={{ 
-          repeat: Infinity, 
+        transition={{
+          repeat: Infinity,
           duration: 20,
-          ease: "linear"
+          ease: "linear",
         }}
-        className="animate-grid [background-image:linear-gradient(to_right,rgba(75,75,75,0.8)_1px,transparent_0),linear-gradient(to_bottom,rgba(75,75,75,0.8)_1px,transparent_0)] [background-repeat:repeat] [background-size:60px_60px] [height:300vh] [inset:0%_0px] [margin-left:-200%] [transform-origin:100%_0_0] [width:600vw]" 
+        className="animate-grid [background-image:linear-gradient(to_right,rgba(75,75,75,0.8)_1px,transparent_0),linear-gradient(to_bottom,rgba(75,75,75,0.8)_1px,transparent_0)] [background-repeat:repeat] [background-size:60px_60px] [height:300vh] [inset:0%_0px] [margin-left:-200%] [transform-origin:100%_0_0] [width:600vw]"
       />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent to-90%" />
@@ -53,11 +53,11 @@ export const HeroSectionDark = React.forwardRef<
   ) => {
     const navigate = useNavigate();
     const { scrollY } = useScroll();
-    
+
     // Parallax effect for main title
     const titleOpacity = useTransform(scrollY, [0, 300], [1, 0]);
     const titleY = useTransform(scrollY, [0, 300], [0, -100]);
-    
+
     // Parallax effect for gradient background
     const gradientY = useTransform(scrollY, [0, 500], [0, 150]);
 
@@ -66,9 +66,9 @@ export const HeroSectionDark = React.forwardRef<
     };
 
     const handleScrollToExperts = () => {
-      const expertSection = document.querySelector('.scroll-mt-16');
+      const expertSection = document.querySelector(".scroll-mt-16");
       if (expertSection) {
-        expertSection.scrollIntoView({ behavior: 'smooth' });
+        expertSection.scrollIntoView({ behavior: "smooth" });
       }
     };
 
@@ -77,8 +77,8 @@ export const HeroSectionDark = React.forwardRef<
       visible: (custom: number) => ({
         opacity: 1,
         y: 0,
-        transition: { delay: custom * 0.2, duration: 0.8, ease: "easeOut" }
-      })
+        transition: { delay: custom * 0.2, duration: 0.8, ease: "easeOut" },
+      }),
     };
 
     return (
@@ -91,21 +91,21 @@ export const HeroSectionDark = React.forwardRef<
         {...props}
       >
         {/* Background gradients */}
-        <motion.div 
+        <motion.div
           style={{ y: gradientY }}
-          className="absolute top-0 z-0 h-screen w-screen bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))]" 
+          className="absolute top-0 z-0 h-screen w-screen bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))]"
         />
 
         <section className="relative max-w-full mx-auto">
           <RetroGridDark />
 
           {/* Hero content */}
-          <motion.div 
+          <motion.div
             style={{ opacity: titleOpacity, y: titleY }}
             className="max-w-screen-xl z-10 mx-auto px-4 py-20 gap-12 md:px-8"
           >
             <div className="space-y-8 max-w-3xl mx-auto text-center">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
@@ -115,14 +115,18 @@ export const HeroSectionDark = React.forwardRef<
                   {title}
                   <motion.span
                     animate={{ x: [0, 4, 0] }}
-                    transition={{ repeat: Infinity, repeatDelay: 2, duration: 0.5 }}
+                    transition={{
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                      duration: 0.5,
+                    }}
                   >
                     <ChevronRight className="inline w-4 h-4 ml-2" />
                   </motion.span>
                 </h1>
               </motion.div>
 
-              <motion.h2 
+              <motion.h2
                 initial="hidden"
                 animate="visible"
                 variants={fadeInUpVariants}
@@ -133,10 +137,16 @@ export const HeroSectionDark = React.forwardRef<
                   <span className="relative top-[0.5px]">
                     {subtitle.regular}
                   </span>
-                  <motion.span 
+                  <motion.span
                     initial={{ backgroundPosition: "0% 50%" }}
-                    animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                     className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200 relative top-[0.5px]"
                   >
                     {subtitle.gradient}
@@ -144,7 +154,7 @@ export const HeroSectionDark = React.forwardRef<
                 </span>
               </motion.h2>
 
-              <motion.p 
+              <motion.p
                 variants={fadeInUpVariants}
                 initial="hidden"
                 animate="visible"
@@ -153,9 +163,9 @@ export const HeroSectionDark = React.forwardRef<
               >
                 {description}
               </motion.p>
-              
+
               {/* CTA Button - Moved up here */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
@@ -163,7 +173,7 @@ export const HeroSectionDark = React.forwardRef<
               >
                 <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
                   <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                     className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium backdrop-blur-3xl"
@@ -177,9 +187,9 @@ export const HeroSectionDark = React.forwardRef<
                     >
                       <motion.span
                         initial={{ opacity: 1 }}
-                        whileHover={{ 
+                        whileHover={{
                           opacity: [1, 0.8, 1],
-                          transition: { duration: 1.5, repeat: Infinity }
+                          transition: { duration: 1.5, repeat: Infinity },
                         }}
                       >
                         {ctaText}
@@ -193,27 +203,27 @@ export const HeroSectionDark = React.forwardRef<
 
           {/* Main content */}
           <main className="flex flex-col items-center justify-center py-16 px-4 mt-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.05 }}
               transition={{ duration: 2 }}
               className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] bg-fixed"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 2 }}
               className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/5"
             />
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
               className="text-center mb-16 relative z-10"
             >
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -222,7 +232,7 @@ export const HeroSectionDark = React.forwardRef<
               >
                 AI Education Companions
               </motion.h1>
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -235,7 +245,7 @@ export const HeroSectionDark = React.forwardRef<
             </motion.div>
 
             {/* Features section */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -246,7 +256,7 @@ export const HeroSectionDark = React.forwardRef<
             </motion.div>
 
             {/* Testimonials section */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -257,7 +267,7 @@ export const HeroSectionDark = React.forwardRef<
             </motion.div>
 
             {/* CTA section */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -269,7 +279,7 @@ export const HeroSectionDark = React.forwardRef<
           </main>
 
           {/* Footer with proper z-index */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

@@ -48,7 +48,7 @@ You are an expert assistant for last-minute exam preparation in the field of ${e
    - 💥 3 Key Mnemonics
    - 🚨 5 Rapid 1-Markers
    - ⚡ Top Mistake to Avoid
-   - 🔥 **Predicted Hot Questions (2024):**
+   - 🔥 **Predicted Hot Questions (2025):**
      🎯 1-Mark: Definition/concept
      📘 5-Mark: Diagram/derivation
      📚 10-Mark: Case study/problem
