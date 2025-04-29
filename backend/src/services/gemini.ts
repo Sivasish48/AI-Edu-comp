@@ -10,7 +10,7 @@ const VALID_EXPERTS = [
   "object-oriented programming",
   "data structures and algorithms",
   "database management systems",
-  "artificial intelligence,machine learning,deep learning and data science",
+  "artificial intelligence,machine learning,deep learning",
 ];
 
 const generateContent = async (
