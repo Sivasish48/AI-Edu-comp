@@ -248,7 +248,7 @@ export default function Dbms() {
                 <div className="flex-shrink-0 mr-3">
                   <Avatar className="h-8 w-8">
                     <img
-                      src="/Db.png"
+                      src={dbmsImage}
                       alt="DBMS Expert"
                       className="rounded-full bg-zinc-900"
                     />

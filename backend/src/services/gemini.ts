@@ -11,6 +11,12 @@ const VALID_EXPERTS = [
   "data structures and algorithms",
   "database management systems",
   "artificial intelligence,machine learning,deep learning",
+  "cyber security",
+  "c and c++",
+  "cloud computing",
+  "computer architecture",
+  "internet of things",
+  "data science, analytics, and data engineering",
 ];
 
 const generateContent = async (
@@ -20,7 +26,7 @@ const generateContent = async (
   try {
     const expert = VALID_EXPERTS.includes(subjectExpert.toLowerCase())
       ? subjectExpert
-      : "generalCS";
+      : "general computer science about cyber security, C and C++, cloud computing, computer architecture, internet of things, data science, analytics, and data engineering ,operating systems, computer networking, object-oriented programming, data structures and algorithms, database management systems, artificial intelligence, machine learning, deep learning";
 
     const systemInstruction = `
 **AI System Instruction: ${expert.toUpperCase()} Exam Guru**

@@ -21,7 +21,7 @@ export default function ComputerArchitecture() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const subjectExpert = "Computer Architecture";
+  const subjectExpert = "computer architecture";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Format AI response with better styling

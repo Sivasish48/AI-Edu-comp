@@ -281,7 +281,7 @@ export default function Os() {
                 <div className="flex-shrink-0 mr-3">
                   <Avatar className="h-8 w-8">
                     <img
-                      src="/Os.png"
+                      src={osImage}
                       alt="OS Expert"
                       className="rounded-full bg-zinc-900"
                     />

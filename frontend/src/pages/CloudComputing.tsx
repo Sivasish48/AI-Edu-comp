@@ -20,7 +20,7 @@ export default function CloudComputing() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const subjectExpert = "Cloud Computing";
+  const subjectExpert = "cloud computing";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Format AI response with better styling

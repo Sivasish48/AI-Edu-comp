@@ -21,7 +21,7 @@ export default function Iot() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const subjectExpert = "Internet of Things";
+  const subjectExpert = "internet of things";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Format AI response with better styling

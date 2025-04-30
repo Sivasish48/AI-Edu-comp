@@ -280,7 +280,7 @@ export default function Oops() {
                 <div className="flex-shrink-0 mr-3">
                   <Avatar className="h-8 w-8">
                     <img
-                      src="/Oops.png"
+                      src={oopsImage}
                       alt="OOP Expert"
                       className="rounded-full bg-zinc-900"
                     />

@@ -20,7 +20,7 @@ export default function DataScienceExpert() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const subjectExpert = "Data Science, Analytics, and Data Engineering";
+  const subjectExpert = "data science, analytics, and data engineering";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Format AI response with better styling

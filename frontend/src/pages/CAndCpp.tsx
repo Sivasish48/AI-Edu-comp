@@ -21,7 +21,7 @@ export default function CandCpp() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const subjectExpert = "C and C++";
+  const subjectExpert = "c and c++";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Format AI response with better styling

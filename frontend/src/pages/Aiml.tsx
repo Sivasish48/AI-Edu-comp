@@ -19,7 +19,7 @@ export default function Aiml() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const subjectExpert = "artificial intelligence,machine learning,deep learning and data science";
+  const subjectExpert = "artificial intelligence,machine learning,deep learning";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Format AI response with better styling
@@ -244,7 +244,7 @@ export default function Aiml() {
                 <div className="flex-shrink-0 mr-3">
                   <Avatar className="h-8 w-8">
                     <img
-                      src="/Mlai.png"
+                      src={aimlImage}
                       alt="AI/ML Expert"
                       className="rounded-full bg-zinc-900"
                     />

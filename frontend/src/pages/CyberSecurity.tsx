@@ -21,7 +21,7 @@ export default function CyberSecurity() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const subjectExpert = "Cyber Security";
+  const subjectExpert = "cyber security";
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Format AI response with better styling
