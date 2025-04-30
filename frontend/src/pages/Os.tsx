@@ -7,6 +7,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { cn } from "../lib/utils";
 import { Send, Copy, ChevronRight, ArrowLeft, ArrowUp } from "lucide-react";
+import osImage from "../assets/pic6.png";
 
 interface Message {
   id: string;
@@ -172,7 +173,7 @@ export default function Os() {
             <div className="flex flex-col items-center justify-center h-[70vh] text-center animate-fade-in">
               <Avatar className="h-24 w-24 mb-6 transition-transform duration-300 hover:scale-110">
                 <img
-                  src="/Os.png"
+                  src={osImage}
                   alt="OS Expert"
                   className="rounded-full bg-zinc-900"
                 />
@@ -205,7 +206,7 @@ export default function Os() {
                     <div className="flex-shrink-0 mr-3">
                       <Avatar className="h-8 w-8 transition-transform duration-300 hover:scale-110">
                         <img
-                          src="/Os.png"
+                          src={osImage}
                           alt="OS Expert"
                           className="rounded-full bg-zinc-900"
                         />

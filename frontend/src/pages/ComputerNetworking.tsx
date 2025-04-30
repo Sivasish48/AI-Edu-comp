@@ -6,7 +6,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { cn } from "../lib/utils";
 import { Send, Copy, ChevronRight, ArrowLeft, ArrowUp } from "lucide-react";
-
+import cnImage from "../assets/cn1.jpg";
 interface Message {
   id: string;
   role: "user" | "assistant";
@@ -145,7 +145,7 @@ export default function ComputerNetworking() {
             <div className="flex flex-col items-center justify-center h-[70vh] text-center animate-fade-in">
               <Avatar className="h-24 w-24 mb-6 transition-transform duration-300 hover:scale-110">
                 <img
-                  src="/Cn.png"
+                  src={cnImage}
                   alt="Networking Expert"
                   className="rounded-full bg-zinc-900"
                 />
@@ -178,7 +178,7 @@ export default function ComputerNetworking() {
                     <div className="flex-shrink-0 mr-3">
                       <Avatar className="h-8 w-8 hover:scale-110 transition-transform">
                         <img
-                          src="/Cn.png"
+                          src={cnImage}
                           alt="Networking Expert"
                           className="rounded-full bg-zinc-900"
                         />

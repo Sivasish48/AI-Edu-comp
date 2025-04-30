@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardFooter } from "../components/ui/card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import cn1Image from "../assets/cn1.jpg";
 import cn2Image from "../assets/cn2.jpg";
@@ -29,6 +29,7 @@ const aiExperts = [
     image: pic6Image,
     cardStyle: "from-purple-500/20 to-indigo-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/os"
   },
   {
     name: "Prof. James Wilson",
@@ -39,6 +40,7 @@ const aiExperts = [
     image: img6Image,
     cardStyle: "from-blue-500/20 to-cyan-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/oops"
   },
   {
     name: "Dr. Maya Patel",
@@ -49,6 +51,7 @@ const aiExperts = [
     image: img7Image,
     cardStyle: "from-emerald-500/20 to-teal-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/dsa"
   },
   {
     name: "Alex Rodriguez",
@@ -59,6 +62,7 @@ const aiExperts = [
     image: cn1Image,
     cardStyle: "from-pink-500/20 to-rose-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/computer-networking"
   },
   {
     name: "Dr. Kenji Tanaka",
@@ -69,6 +73,7 @@ const aiExperts = [
     image: cn2Image,
     cardStyle: "from-amber-500/20 to-orange-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/aiml"
   },
   {
     name: "Dr. Olivia Washington",
@@ -79,8 +84,8 @@ const aiExperts = [
     image: cn3Image,
     cardStyle: "from-red-500/20 to-rose-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/dbms"
   },
-
   {
     name: "Prof. David Kim",
     title: "Cyber Security",
@@ -90,6 +95,7 @@ const aiExperts = [
     image: img8Image,
     cardStyle: "from-violet-500/20 to-purple-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/cyber-security"
   },
   {
     name: "Emma Johnson",
@@ -100,6 +106,7 @@ const aiExperts = [
     image: cn5Image,
     cardStyle: "from-blue-500/20 to-indigo-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/c-&-cpp"
   },
   {
     name: "Dr. Michael Zhang",
@@ -110,6 +117,7 @@ const aiExperts = [
     image: pic5Image,
     cardStyle: "from-teal-500/20 to-green-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/iot"
   },
   {
     name: "Sophia Martinez",
@@ -120,6 +128,7 @@ const aiExperts = [
     image: pic3Image,
     cardStyle: "from-gray-500/20 to-slate-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/computer-architecture"
   },
   {
     name: "Dr. Thomas Lee",
@@ -130,6 +139,7 @@ const aiExperts = [
     image: pic2Image,
     cardStyle: "from-fuchsia-500/20 to-pink-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/cloud-computing"
   },
   {
     name: "Dr. Aisha Nkosi",
@@ -140,10 +150,17 @@ const aiExperts = [
     image: pic1Image,
     cardStyle: "from-cyan-500/20 to-blue-600/20",
     buttonStyle: "bg-purple-500 hover:bg-purple-600",
+    chatPath: "/data-science"
   },
 ];
 
 export const AiExpert = ({ experts = aiExperts }) => {
+  const navigate = useNavigate();
+
+  const handleExpertClick = (chatPath:any) => {
+    navigate(chatPath);
+  };
+
   return (
     <div className="bg-[#030303] px-4 py-8 md:px-8 lg:px-12 text-center !pb-15">
       <motion.h1
@@ -230,15 +247,14 @@ export const AiExpert = ({ experts = aiExperts }) => {
                 </CardContent>
 
                 <CardFooter className="p-0 pt-3 sm:pt-4">
-                  <Link to="" className="w-full">
-                    <motion.button
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`${expert.buttonStyle} text-white text-xl font-bold sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 rounded-md w-full transition-colors duration-300`}
-                    >
-                      Start conversation
-                    </motion.button>
-                  </Link>
+                  <motion.button
+                    onClick={() => handleExpertClick(expert.chatPath)}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`${expert.buttonStyle} text-white text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 rounded-md w-full transition-colors duration-300`}
+                  >
+                    Start conversation
+                  </motion.button>
                 </CardFooter>
               </div>
             </Card>
